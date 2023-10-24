@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject[] diseaseCubes;
+
+    public GameObject[] GetDiseaseCubes()
     {
-        
+        return diseaseCubes;
+    }
+    public GameObject GetDiseaseCube(int i)
+    {
+        return diseaseCubes[i];
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetDiseaseCubes(GameObject[] diseaseCubeList)
     {
-        
+        diseaseCubes = diseaseCubeList;
+    }
+
+    public void SetDiseaseCube(int i, GameObject diseaseCube)
+    {
+        diseaseCubes[i] = diseaseCube;
     }
 }
