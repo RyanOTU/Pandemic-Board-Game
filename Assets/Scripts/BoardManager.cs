@@ -16,19 +16,21 @@ public class BoardManager : MonoBehaviour
     private Tile currentTile;
     private Tile currentHoveredTile;
     private string moveToLocation;
-    private Vector3 cursorTextBoxPos;
+    private Vector3 cursorPos;
 
 
     private void Start()
     {
-        
+        invalidLocationBox.text = "";
     }
     private void Update()
     {
-        cursorTextBoxPos = new Vector3(Input.mousePosition.x + 3, Input.mousePosition.y + 5, Input.mousePosition.z);
-        tileNameTextBox.transform.position = mainCamera.GetComponent<Camera>().ScreenToViewportPoint(cursorTextBoxPos); //+ new Vector3(tileNameTextBox.transform.localScale.x / 2, 0, 0);
-        //tileNameTextBox.text = "GOOB";//currentHoveredTile.name;
+        cursorPos = mouseCursor.transform.position + new Vector3(0.8f, 0.5f, 0);
+        tileNameTextBox.transform.position = cursorPos;
+
+        tileNameTextBox.text = mouseCursor.GetHoveredTile().locationName;
         moveToLocation = locationInputBox.GetComponent<TMP_InputField>().text;
+
         if (IsValidLocation()) currentTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -40,7 +42,7 @@ public class BoardManager : MonoBehaviour
         GameObject tile;
         if (IsValidLocation())
         {
-            //invalidLocationBox.text = "";
+            invalidLocationBox.text = "";
             tile = GameObject.Find(moveToLocation);
             players[0].transform.position = tile.transform.position + new Vector3(0, (tile.transform.localScale.y / 2), 0);
         }

@@ -10,7 +10,7 @@ public class Tile : MonoBehaviour
     [SerializeField] Material tileColor;
     [SerializeField] Tile[] adjacentTiles;
     [SerializeField] Player player;
-    [SerializeField] string locationName;
+    [SerializeField] public string locationName;
     [SerializeField] string mouseHover;
     public GUIStyle guiStyleFore;
     private GUIStyle guiStyleBack;
