@@ -46,6 +46,7 @@ public class BoardManager : MonoBehaviour
         if (IsValidLocation())
         {
             invalidLocationBox.text = "";
+            //Remove player from current tile and add player to target tile
             tile = GameObject.Find(moveToLocation);
             players[0].transform.position = tile.transform.position + new Vector3(0, (tile.transform.localScale.y / 2), 0);
         }
@@ -56,16 +57,21 @@ public class BoardManager : MonoBehaviour
     }
     public bool IsValidLocation()
     {
-        GameObject targetLocation = GameObject.Find(moveToLocation);
+        //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
+        //FIXXXXXXX
+        //ASAPPPPPP
+        Tile targetLocation = GameObject.Find(moveToLocation).GetComponent<Tile>();
+        Debug.Log(targetLocation.locationName);
         if (targetLocation != null)
         {
-            for (int i = 0; i < targetLocation.GetComponent<Tile>().GetAdjacentTiles().Length; ++i)
+            for (int i = 0; i < targetLocation.GetAdjacentTiles().Length; ++i)
             {
-                if (currentTile.GetComponent<Tile>().GetAdjacentTiles()[i].locationName == targetLocation.GetComponent<Tile>().locationName)
+                if (currentTile.GetAdjacentTiles()[i].locationName == targetLocation.locationName)
                 {
                     return true;
                 }
             }
+            return false;
         }
         else return false;
     }
