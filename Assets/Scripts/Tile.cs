@@ -12,21 +12,9 @@ public class Tile : MonoBehaviour
     [SerializeField] Player player;
     [SerializeField] public string locationName;
     [SerializeField] string mouseHover;
-    public GUIStyle guiStyleFore;
-    private GUIStyle guiStyleBack;
 
     private void Start()
     {
-        guiStyleFore = new GUIStyle();
-        guiStyleFore.normal.textColor = Color.white;
-        guiStyleFore.alignment = TextAnchor.UpperCenter;
-        guiStyleFore.wordWrap = true;
-
-        guiStyleBack = new GUIStyle();
-        guiStyleBack.normal.textColor = Color.black;
-        guiStyleBack.alignment = TextAnchor.UpperCenter;
-        guiStyleBack.wordWrap = true;
-
         locationName = gameObject.name;
     }
     public void RemoveDiseaseCube()
@@ -43,5 +31,9 @@ public class Tile : MonoBehaviour
     public GameObject[] GetDiseaseCubes()
     {
         return diseaseCubes;
+    }
+    public Tile[] GetAdjacentTiles()
+    {
+        return adjacentTiles;
     }
 }

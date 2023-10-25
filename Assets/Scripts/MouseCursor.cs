@@ -17,10 +17,14 @@ public class MouseCursor : MonoBehaviour
     }
     public Tile GetHoveredTile()
     {
-        return hoveredTile.GetComponent<Tile>();
+        if (hoveredTile.tag == "Tile") return hoveredTile.GetComponent<Tile>();
+        else return null;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        hoveredTile = collision.gameObject;
+        if (collision.gameObject.tag == "Tile")
+        {
+            hoveredTile = collision.gameObject;
+        }
     }
 }
