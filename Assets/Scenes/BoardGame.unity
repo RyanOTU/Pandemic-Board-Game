@@ -4115,7 +4115,11 @@ MonoBehaviour:
   diseaseCubes: []
   researchCenters: []
   tileColor: {fileID: 0}
-  adjacentTiles: []
+  adjacentTiles:
+  - {fileID: 9077138683998137383}
+  - {fileID: 1273498749}
+  - {fileID: 1389677982}
+  - {fileID: 329000318}
   player: {fileID: 0}
   locationName: 
   mouseHover: 
@@ -11486,7 +11490,11 @@ MonoBehaviour:
   diseaseCubes: []
   researchCenters: []
   tileColor: {fileID: 0}
-  adjacentTiles: []
+  adjacentTiles:
+  - {fileID: 9077138683998137383}
+  - {fileID: 453756436}
+  - {fileID: 1280424001}
+  - {fileID: 537575968}
   player: {fileID: 0}
   locationName: 
   mouseHover: 
