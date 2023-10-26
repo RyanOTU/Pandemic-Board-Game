@@ -41,11 +41,12 @@ public class BoardManager : MonoBehaviour
     }
     private void Update()
     {
-        cursorPos = mouseCursor.transform.position + new Vector3(0.8f, 0.5f, 0);
+        cursorPos = mouseCursor.transform.position + new Vector3(0, -0.5f, 0);
         tileNameTextBox.transform.position = cursorPos;
 
         //I attempted to get this to work but it kept throwing null reference exceptions even though I'm checking for it sooooo I gave up :)
-        //if (mouseCursor.GetHoveredTile() != null) tileNameTextBox.text = mouseCursor.GetHoveredTile().locationName;
+        if (mouseCursor.hoveredTile != null) tileNameTextBox.text = mouseCursor.hoveredTile.GetComponent<Tile>().locationName;
+        else tileNameTextBox.text = "";
 
         moveToLocation = locationInputBox.GetComponent<TMP_InputField>().text;
 
@@ -90,7 +91,7 @@ public class BoardManager : MonoBehaviour
         }
         else return false;
     }
-    public void AddDisease()
+    public void AddDiseaseOnPlayer()
     {
         currentTile.AddDiseaseCube(diseaseCubeDefault);
         DecrementActions();
