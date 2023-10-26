@@ -36,10 +36,12 @@ public class BoardManager : MonoBehaviour
 
         moveToLocation = locationInputBox.GetComponent<TMP_InputField>().text;
 
-        if (IsValidLocation()) targetTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (IsValidLocation())
         {
-            MoveToTile();
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                MoveToTile();
+            }
         }
     }
     public void MoveToTile()
@@ -60,13 +62,16 @@ public class BoardManager : MonoBehaviour
         //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
         //FIXXXXXXX
         //ASAPPPPPP
-        Debug.Log(targetTile.GetLocationName());
+
+        targetTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
         if (targetTile != null)
         {
             for (int i = 0; i < targetTile.GetAdjacentTiles().Length; ++i)
             {
+                Debug.Log("Checking tile " + i);
                 if (targetTile.GetAdjacentTiles()[i].GetLocationName() == currentPlayer.GetTile().GetLocationName())
                 {
+                    Debug.Log("Tile " + i + "is adjacent!");
                     return true;
                 }
             }

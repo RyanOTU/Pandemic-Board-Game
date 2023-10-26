@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     [SerializeField] public string locationName;
     [SerializeField] string mouseHover;
 
-    private void OnEnable()
+    private void Awake()
     {
         locationName = gameObject.name;
     }
