@@ -36,12 +36,9 @@ public class BoardManager : MonoBehaviour
 
         moveToLocation = locationInputBox.GetComponent<TMP_InputField>().text;
 
-        if (IsValidLocation())
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                MoveToTile();
-            }
+            MoveToTile();
         }
     }
     public void MoveToTile()
@@ -62,8 +59,7 @@ public class BoardManager : MonoBehaviour
         //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
         //FIXXXXXXX
         //ASAPPPPPP
-
-        targetTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
+        if (GameObject.Find(moveToLocation) != null) targetTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
         if (targetTile != null)
         {
             for (int i = 0; i < targetTile.GetAdjacentTiles().Length; ++i)
@@ -81,10 +77,6 @@ public class BoardManager : MonoBehaviour
     }
     public void TreatDisease()
     {
-        if (IsValidLocation() && targetTile.GetDiseaseCubes() != null)
-        {
-            targetTile.RemoveDiseaseCube();
-        }
+        currentTile.RemoveDiseaseCube();
     }
-    
 }

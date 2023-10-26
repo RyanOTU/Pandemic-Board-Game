@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] GameObject[] diseaseCubes = new GameObject[3];
+    [SerializeField] List<GameObject> diseaseCubes = new List<GameObject>(3);
     [SerializeField] GameObject[] researchCenters;
     [SerializeField] Material tileColor;
     [SerializeField] Tile[] adjacentTiles;
@@ -16,19 +16,20 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         locationName = gameObject.name;
+
     }
     public void RemoveDiseaseCube()
     {
-        for (int i = 0; i < diseaseCubes.Length; i++)
+        for (int i = 0; i < diseaseCubes.Count; i++)
         {
             if (diseaseCubes[i].GetComponent<GameObject>() != null)
             {
-                GameObject.Destroy(diseaseCubes[i]);
+                GameObject.Destroy(diseaseCubes[i].gameObject);
                 break;
             }
         }
     }
-    public GameObject[] GetDiseaseCubes()
+    public List<GameObject> GetDiseaseCubes()
     {
         return diseaseCubes;
     }
