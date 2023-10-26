@@ -23,4 +23,8 @@ public class Player : MonoBehaviour
     {
         return currentTile;
     }
+    public PlayerNum GetPlayerNum()
+    {
+        return playerNum;
+    }
 }
