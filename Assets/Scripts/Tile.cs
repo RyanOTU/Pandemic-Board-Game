@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     [SerializeField] public string locationName;
     [SerializeField] string mouseHover;
 
-    private void Start()
+    private void OnEnable()
     {
         locationName = gameObject.name;
     }
@@ -35,5 +35,9 @@ public class Tile : MonoBehaviour
     public Tile[] GetAdjacentTiles()
     {
         return adjacentTiles;
+    }
+    public string GetLocationName()
+    {
+        return locationName;
     }
 }

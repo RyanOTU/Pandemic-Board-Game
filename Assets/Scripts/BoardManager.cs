@@ -13,14 +13,16 @@ public class BoardManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI tileNameTextBox;
     [SerializeField] MouseCursor mouseCursor;
     [SerializeField] Camera mainCamera;
+    private Tile targetTile;
     private Tile currentTile;
-    private Tile currentHoveredTile;
+    private Player currentPlayer;
     private string moveToLocation;
     private Vector3 cursorPos;
 
 
     private void Start()
     {
+        currentPlayer = players[0];
         invalidLocationBox.text = "";
         tileNameTextBox.text = "";
     }
@@ -34,7 +36,7 @@ public class BoardManager : MonoBehaviour
 
         moveToLocation = locationInputBox.GetComponent<TMP_InputField>().text;
 
-        if (IsValidLocation()) currentTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
+        if (IsValidLocation()) targetTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
         if (Input.GetKeyDown(KeyCode.Return))
         {
             MoveToTile();
@@ -42,13 +44,11 @@ public class BoardManager : MonoBehaviour
     }
     public void MoveToTile()
     {
-        GameObject tile;
         if (IsValidLocation())
         {
             invalidLocationBox.text = "";
             //Remove player from current tile and add player to target tile
-            tile = GameObject.Find(moveToLocation);
-            players[0].transform.position = tile.transform.position + new Vector3(0, (tile.transform.localScale.y / 2), 0);
+            players[0].SetTile(targetTile);
         }
         else
         {
@@ -60,13 +60,12 @@ public class BoardManager : MonoBehaviour
         //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
         //FIXXXXXXX
         //ASAPPPPPP
-        Tile targetLocation = GameObject.Find(moveToLocation).GetComponent<Tile>();
-        Debug.Log(targetLocation.locationName);
-        if (targetLocation != null)
+        Debug.Log(targetTile.GetLocationName());
+        if (targetTile != null)
         {
-            for (int i = 0; i < targetLocation.GetAdjacentTiles().Length; ++i)
+            for (int i = 0; i < targetTile.GetAdjacentTiles().Length; ++i)
             {
-                if (currentTile.GetAdjacentTiles()[i].locationName == targetLocation.locationName)
+                if (targetTile.GetAdjacentTiles()[i].GetLocationName() == currentPlayer.GetTile().GetLocationName())
                 {
                     return true;
                 }
@@ -77,9 +76,9 @@ public class BoardManager : MonoBehaviour
     }
     public void TreatDisease()
     {
-        if (IsValidLocation() && currentTile.GetDiseaseCubes() != null)
+        if (IsValidLocation() && targetTile.GetDiseaseCubes() != null)
         {
-            currentTile.RemoveDiseaseCube();
+            targetTile.RemoveDiseaseCube();
         }
     }
     
