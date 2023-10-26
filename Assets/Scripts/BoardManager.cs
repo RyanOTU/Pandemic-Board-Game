@@ -31,7 +31,7 @@ public class BoardManager : MonoBehaviour
 
     private void Start()
     {
-        //GameObject.Find("Miami").GetComponent<Tile>().AddDiseaseCube(2);
+        GameObject.Find("Miami").GetComponent<Tile>().AddDiseaseCube(2);
         currentActions = actions;
         currentPlayer = players[0];
         currentTile = players[0].GetTile();
@@ -54,7 +54,7 @@ public class BoardManager : MonoBehaviour
         {
             MoveToTile();
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && mouseCursor.hoveredTile != null)
         {
             MoveToTile(mouseCursor.hoveredTile);
         }
@@ -64,7 +64,6 @@ public class BoardManager : MonoBehaviour
         if (IsValidLocation())
         {
             invalidLocationBox.text = "";
-            //Remove player from current tile and add player to target tile
             currentPlayer.SetTile(targetTile);
             currentTile = currentPlayer.GetTile();
             DecrementActions();
@@ -79,7 +78,6 @@ public class BoardManager : MonoBehaviour
         if (IsValidLocation(tile))
         {
             invalidLocationBox.text = "";
-            //Remove player from current tile and add player to target tile
             currentPlayer.SetTile(targetTile);
             currentTile = currentPlayer.GetTile();
             DecrementActions();
@@ -91,9 +89,6 @@ public class BoardManager : MonoBehaviour
     }
     public bool IsValidLocation()
     {
-        //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
-        //FIXXXXXXX
-        //ASAPPPPPP
         if (GameObject.Find(moveToLocation) != null) targetTile = GameObject.Find(moveToLocation).GetComponent<Tile>();
         if (targetTile != null && currentPlayer.GetTile() != null)
         {
@@ -112,9 +107,6 @@ public class BoardManager : MonoBehaviour
     }
     public bool IsValidLocation(GameObject tile)
     {
-        //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
-        //FIXXXXXXX
-        //ASAPPPPPP
         if (tile != null) targetTile = tile.GetComponent<Tile>();
         if (targetTile != null && currentPlayer.GetTile() != null)
         {
@@ -133,10 +125,16 @@ public class BoardManager : MonoBehaviour
     }
     public void AddDisease()
     {
-        if (currentPlayer.role != Player.Roles.QuarrantineExpert)
+        if (currentPlayer.role == Player.Roles.QuarrantineExpert)
         {
-            currentTile.AddDiseaseCube(diseaseCubeDefault);
-            //gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(diseaseCubeDefault);
+            //Uncomment to swap between modes (VS / Standard)
+            currentTile.AddDiseaseCube(currentPlayer, diseaseCubeDefault);
+            //gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(currentPlayer, diseaseCubeDefault);
+            DecrementActions();
+        }
+        else
+        {
+            gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(diseaseCubeDefault);
             DecrementActions();
         }
     }

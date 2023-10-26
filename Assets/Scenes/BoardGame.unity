@@ -18037,6 +18037,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 653557096}
     m_Modifications:
     - target: {fileID: 5602580620010772898, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
+      propertyPath: role
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5602580620010772898, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
       propertyPath: currentTile
       value: 
       objectReference: {fileID: 917789741}

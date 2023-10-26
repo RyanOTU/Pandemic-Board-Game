@@ -92,6 +92,29 @@ public class Tile : MonoBehaviour
             }
         }
     }
+    public void AddDiseaseCube(Player excludedPlayer, GameObject prefab)
+    {
+        this.diseaseCubePrefab = prefab;
+        if (diseaseCubes.Count < 3)
+        {
+            if (excludedPlayer.GetTile() != this)
+            {
+                diseaseCubes.Add(Instantiate(this.diseaseCubePrefab, diseaseCubesPos, Quaternion.identity));
+                diseaseCubesPos.x += this.transform.localScale.x;
+            }
+        }
+        else if (diseaseCubes.Count == 3)
+        {
+            isFull = true;
+        }
+        if (isFull)
+        {
+            for (int i = 0; i < adjacentTiles.Length; i++)
+            {
+                if (!adjacentTiles[i].isFull) adjacentTiles[i].AddDiseaseCube(this.diseaseCubePrefab);
+            }
+        }
+    }
     public bool CanAddDiseaseCube()
     {
         if (diseaseCubes.Count < 3) return true;
