@@ -26,6 +26,7 @@ public class Tile : MonoBehaviour
         diseaseCubesPos.x += this.transform.localScale.x;
         boardManager = GameObject.FindWithTag("BoardManager").GetComponent<BoardManager>();
         locationName = gameObject.name;
+        this.diseaseCubePrefab = boardManager.diseaseCubeDefault;
     }
     public void RemoveDiseaseCube()
     {
@@ -73,9 +74,10 @@ public class Tile : MonoBehaviour
     }
     public void AddDiseaseCube(GameObject prefab)
     {
+        this.diseaseCubePrefab = prefab;
         if (diseaseCubes.Count < 3)
         {
-            diseaseCubes.Add(Instantiate(prefab, diseaseCubesPos, Quaternion.identity));
+            diseaseCubes.Add(Instantiate(this.diseaseCubePrefab, diseaseCubesPos, Quaternion.identity));
             diseaseCubesPos.x += this.transform.localScale.x;
         }
         else if (diseaseCubes.Count == 3)
@@ -86,7 +88,7 @@ public class Tile : MonoBehaviour
         {
             for (int i = 0; i < adjacentTiles.Length; i++)
             {
-                if (!adjacentTiles[i].isFull) adjacentTiles[i].AddDiseaseCube(prefab);
+                if (!adjacentTiles[i].isFull) adjacentTiles[i].AddDiseaseCube(this.diseaseCubePrefab);
             }
         }
     }

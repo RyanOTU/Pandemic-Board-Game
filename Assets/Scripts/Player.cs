@@ -6,6 +6,12 @@ public class Player : MonoBehaviour
 {
     public Tile currentTile;
     public GameObject diseaseCubePrefab;
+    public enum Roles
+    {
+        Medic,
+        QuarrantineExpert
+    };
+    [SerializeField] public Roles role;
     public enum PlayerNum
     {
         Player1,

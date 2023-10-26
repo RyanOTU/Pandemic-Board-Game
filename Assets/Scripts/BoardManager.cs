@@ -17,14 +17,14 @@ public class BoardManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI announcerBox;
     [SerializeField] Button addDiseaseButton;
     [SerializeField] Button treatDiseaseButton;
-    [SerializeField] GameObject diseaseCubeDefault;
     [SerializeField] MouseCursor mouseCursor;
     [SerializeField] Camera mainCamera;
     [SerializeField] int actions = 4;
+    [SerializeField] public GameObject diseaseCubeDefault;
     private int currentActions;
     private Tile targetTile;
     private Tile currentTile;
-    private Player currentPlayer;
+    public Player currentPlayer;
     private string moveToLocation;
     private Vector3 cursorPos;
 
@@ -54,10 +54,29 @@ public class BoardManager : MonoBehaviour
         {
             MoveToTile();
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            MoveToTile(mouseCursor.hoveredTile);
+        }
     }
     public void MoveToTile()
     {
         if (IsValidLocation())
+        {
+            invalidLocationBox.text = "";
+            //Remove player from current tile and add player to target tile
+            currentPlayer.SetTile(targetTile);
+            currentTile = currentPlayer.GetTile();
+            DecrementActions();
+        }
+        else
+        {
+            invalidLocationBox.text = "Invalid Location!";
+        }
+    }
+    public void MoveToTile(GameObject tile)
+    {
+        if (IsValidLocation(tile))
         {
             invalidLocationBox.text = "";
             //Remove player from current tile and add player to target tile
@@ -91,10 +110,35 @@ public class BoardManager : MonoBehaviour
         }
         else return false;
     }
-    public void AddDiseaseOnPlayer()
+    public bool IsValidLocation(GameObject tile)
     {
-        currentTile.AddDiseaseCube(diseaseCubeDefault);
-        DecrementActions();
+        //Confused, the currentTile is the target location so I gotta change how that's named/checked so it's not as confusing...
+        //FIXXXXXXX
+        //ASAPPPPPP
+        if (tile != null) targetTile = tile.GetComponent<Tile>();
+        if (targetTile != null && currentPlayer.GetTile() != null)
+        {
+            for (int i = 0; i < targetTile.GetAdjacentTiles().Length; ++i)
+            {
+                Debug.Log("Checking tile " + i);
+                if (targetTile.GetAdjacentTiles()[i].GetLocationName() == currentPlayer.GetTile().GetLocationName())
+                {
+                    Debug.Log("Tile " + i + "is adjacent!");
+                    return true;
+                }
+            }
+            return false;
+        }
+        else return false;
+    }
+    public void AddDisease()
+    {
+        if (currentPlayer.role != Player.Roles.QuarrantineExpert)
+        {
+            currentTile.AddDiseaseCube(diseaseCubeDefault);
+            //gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(diseaseCubeDefault);
+            DecrementActions();
+        }
     }
     public void TreatDisease()
     {
