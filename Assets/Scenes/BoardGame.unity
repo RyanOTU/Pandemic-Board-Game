@@ -2103,6 +2103,10 @@ PrefabInstance:
       propertyPath: currentTile
       value: 
       objectReference: {fileID: 1017999847}
+    - target: {fileID: 5602580620010772898, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
+      propertyPath: diseaseCubePrefab
+      value: 
+      objectReference: {fileID: 6717792323919211388, guid: d9ff7c9b142760744866a4a6edf96807, type: 3}
     - target: {fileID: 6501697712714462023, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.19
@@ -12842,13 +12846,15 @@ MonoBehaviour:
   gameTiles: []
   players:
   - {fileID: 815023507}
+  - {fileID: 2144131180}
   locationInputBox: {fileID: 677631505}
   invalidLocationBox: {fileID: 150908714}
   tileNameTextBox: {fileID: 931505432}
   announcerBox: {fileID: 2013746182}
+  diseaseCubeDefault: {fileID: 6717792323919211388, guid: 5acc361294491244694333f30f3ebd36, type: 3}
   mouseCursor: {fileID: 8147959456947505924}
   mainCamera: {fileID: 519420031}
-  diseaseCubePrefab: {fileID: 6717792323919211388, guid: cd74a56efddb7324daf30c07817dcd17, type: 3}
+  actions: 4
 --- !u!1 &1478156774
 GameObject:
   m_ObjectHideFlags: 0
@@ -17762,6 +17768,17 @@ CircleCollider2D:
   m_Offset: {x: -0.0000019073486, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2144131180 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5602580620010772898, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
+  m_PrefabInstance: {fileID: 265761836}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25bbf5b4b680cf448cf223d298e1a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2146327729
 GameObject:
   m_ObjectHideFlags: 0
@@ -17970,6 +17987,10 @@ PrefabInstance:
       propertyPath: currentTile
       value: 
       objectReference: {fileID: 917789741}
+    - target: {fileID: 5602580620010772898, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
+      propertyPath: diseaseCubePrefab
+      value: 
+      objectReference: {fileID: 6717792323919211388, guid: cd74a56efddb7324daf30c07817dcd17, type: 3}
     - target: {fileID: 6501697712714462023, guid: d4ae7f511b4213a409fd351f270b07a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

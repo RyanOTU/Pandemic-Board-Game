@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Tile currentTile;
+    public GameObject diseaseCubePrefab;
     public enum PlayerNum
     {
         Player1,
@@ -26,5 +27,9 @@ public class Player : MonoBehaviour
     public PlayerNum GetPlayerNum()
     {
         return playerNum;
+    }
+    public GameObject GetDiseasePrefab()
+    {
+        return diseaseCubePrefab;
     }
 }

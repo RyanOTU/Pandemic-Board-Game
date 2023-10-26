@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7530435786784948853}
   - component: {fileID: 3829343646099100946}
   m_Layer: 0
-  m_Name: DiseaseCube
+  m_Name: P2DiseaseCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 92a4f200a82aab1449f9f85632f32696, type: 2}
+  - {fileID: 2100000, guid: 393e90efdd9209b4db8884c814225d4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

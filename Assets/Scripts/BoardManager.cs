@@ -17,13 +17,14 @@ public class BoardManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI announcerBox;
     [SerializeField] Button addDiseaseButton;
     [SerializeField] Button treatDiseaseButton;
+    [SerializeField] GameObject diseaseCubeDefault;
     [SerializeField] MouseCursor mouseCursor;
     [SerializeField] Camera mainCamera;
-    [SerializeField] public GameObject diseaseCubePrefab;
+    [SerializeField] int actions = 4;
+    private int currentActions;
     private Tile targetTile;
     private Tile currentTile;
     private Player currentPlayer;
-    private int actions = 4;
     private string moveToLocation;
     private Vector3 cursorPos;
 
@@ -31,11 +32,12 @@ public class BoardManager : MonoBehaviour
     private void Start()
     {
         //GameObject.Find("Miami").GetComponent<Tile>().AddDiseaseCube(2);
+        currentActions = actions;
         currentPlayer = players[0];
         currentTile = players[0].GetTile();
         invalidLocationBox.text = "";
         tileNameTextBox.text = "";
-        announcerBox.text = currentPlayer.GetPlayerNum() +", you have " + actions + " actions left!";
+        announcerBox.text = currentPlayer.GetPlayerNum() +", you have " + currentActions + " actions left!";
     }
     private void Update()
     {
@@ -51,14 +53,6 @@ public class BoardManager : MonoBehaviour
         {
             MoveToTile();
         }
-        if (actions == 0 && currentPlayer == players[0])
-        {
-            currentPlayer = players[1];
-        }
-        if (actions == 0 && currentPlayer == players[1])
-        {
-            currentPlayer = players[0];
-        }
     }
     public void MoveToTile()
     {
@@ -66,10 +60,9 @@ public class BoardManager : MonoBehaviour
         {
             invalidLocationBox.text = "";
             //Remove player from current tile and add player to target tile
-            players[0].SetTile(targetTile);
-            currentTile = players[0].GetTile();
-            actions--;
-            announcerBox.text = currentPlayer.GetPlayerNum() + ", you have " + actions + " actions left!";
+            currentPlayer.SetTile(targetTile);
+            currentTile = currentPlayer.GetTile();
+            DecrementActions();
         }
         else
         {
@@ -99,11 +92,32 @@ public class BoardManager : MonoBehaviour
     }
     public void AddDisease()
     {
-        currentTile.AddDiseaseCube();
+        currentTile.AddDiseaseCube(diseaseCubeDefault);
+        DecrementActions();
     }
     public void TreatDisease()
     {
         currentTile.RemoveDiseaseCube();
+        DecrementActions();
+    }
+    public void DecrementActions()
+    {
+        currentActions--;
+        if (currentActions == 0 && currentPlayer == players[0])
+        {
+            currentActions = actions;
+            currentPlayer = players[1];
+            currentTile = currentPlayer.currentTile;
+            currentTile.SetPlayer(currentPlayer);
+        }
+        if (currentActions == 0 && currentPlayer == players[1])
+        {
+            currentActions = actions;
+            currentPlayer = players[0];
+            currentTile = currentPlayer.currentTile;
+            currentTile.SetPlayer(currentPlayer);
+        }
+        announcerBox.text = currentPlayer.GetPlayerNum() + ", you have " + currentActions + " actions left!";
     }
     public Tile GetCurrentTile()
     {
