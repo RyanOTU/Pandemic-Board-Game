@@ -58,6 +58,25 @@ public class BoardManager : MonoBehaviour
         {
             MoveToTile(mouseCursor.hoveredTile);
         }
+
+        if (currentActions == 0 && currentPlayer == players[0])
+        {
+            currentActions = actions;
+            currentPlayer = players[1];
+            currentTile = currentPlayer.currentTile;
+            currentTile.SetPlayer(currentPlayer);
+            AddDisease();
+            announcerBox.text = currentPlayer.GetPlayerNum() + ", you have " + currentActions + " actions left!";
+        }
+        if (currentActions == 0 && currentPlayer == players[1])
+        {
+            currentActions = actions;
+            currentPlayer = players[0];
+            currentTile = currentPlayer.currentTile;
+            currentTile.SetPlayer(currentPlayer);
+            AddDisease();
+            announcerBox.text = currentPlayer.GetPlayerNum() + ", you have " + currentActions + " actions left!";
+        }
     }
     public void MoveToTile()
     {
@@ -128,12 +147,13 @@ public class BoardManager : MonoBehaviour
         if (currentPlayer.role == Player.Roles.QuarrantineExpert)
         {
             //Uncomment to swap between modes (VS / Standard)
-            currentTile.AddDiseaseCube(currentPlayer, diseaseCubeDefault);
-            //gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(currentPlayer, diseaseCubeDefault);
+            //currentTile.AddDiseaseCube(currentPlayer, diseaseCubeDefault);
+            gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(currentPlayer, diseaseCubeDefault);
             DecrementActions();
         }
         else
         {
+            //currentTile.AddDiseaseCube(diseaseCubeDefault);
             gameTiles[Random.Range(0, gameTiles.Length)].AddDiseaseCube(diseaseCubeDefault);
             DecrementActions();
         }
@@ -146,20 +166,6 @@ public class BoardManager : MonoBehaviour
     public void DecrementActions()
     {
         currentActions--;
-        if (currentActions == 0 && currentPlayer == players[0])
-        {
-            currentActions = actions;
-            currentPlayer = players[1];
-            currentTile = currentPlayer.currentTile;
-            currentTile.SetPlayer(currentPlayer);
-        }
-        if (currentActions == 0 && currentPlayer == players[1])
-        {
-            currentActions = actions;
-            currentPlayer = players[0];
-            currentTile = currentPlayer.currentTile;
-            currentTile.SetPlayer(currentPlayer);
-        }
         announcerBox.text = currentPlayer.GetPlayerNum() + ", you have " + currentActions + " actions left!";
     }
     public Tile GetCurrentTile()
